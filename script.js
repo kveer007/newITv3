@@ -117,15 +117,33 @@ function formatDate(date) {
     }
   
     startReminder(time) {
-        this.reminderInterval = setInterval(() => {
-            const currentHour = new Date().getHours();
-            if (currentHour >= 8 && currentHour < 22) {
-                new Notification(`Time to log your ${this.type} intake!`);
+      this.reminderInterval = setInterval(() => {
+        new Notification(`Time to log your ${this.type} intake!`);
+      }, time * 60 * 1000);
+    
+      localStorage.setItem(this.reminderKey, time);
+    
+      // ✅ Make.com call only for water
+      if (this.type === "water") {
+        OneSignal.push(function() {
+          OneSignal.getUserId().then(function(playerId) {
+            if (playerId) {
+              fetch("https://hook.eu2.make.com/vgqpec2mavg7m8gp8b8ftaabveiwac6n", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  playerID: playerId,
+                  intervalMinutes: time
+                })
+              });
             }
-        }, time * 60 * 1000);
-        localStorage.setItem(this.reminderKey, time);
+          });
+        });
+      }
     }
-  
+     
     checkAndResetDailyIntake() {
         const currentDate = formatDate(new Date());
         const lastResetDate = localStorage.getItem(this.lastResetKey);
