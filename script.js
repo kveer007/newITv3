@@ -117,28 +117,43 @@ function formatDate(date) {
     }
   
     startReminder(time) {
+      console.log("⏱ Setting reminder for:", this.type, "every", time, "minutes");
+    
+      // Start the local notification loop
       this.reminderInterval = setInterval(() => {
         new Notification(`Time to log your ${this.type} intake!`);
       }, time * 60 * 1000);
     
+      // Save the interval locally
       localStorage.setItem(this.reminderKey, time);
     
-      // ✅ Make.com call only for water
+      // 🔁 Send to Make.com only for water tracker
       if (this.type === "water") {
-        OneSignal.push(function() {
-          OneSignal.getUserId().then(function(playerId) {
-            if (playerId) {
-              fetch("https://hook.eu2.make.com/vgqpec2mavg7m8gp8b8ftaabveiwac6n", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                  playerID: playerId,
-                  intervalMinutes: time
-                })
-              });
+        console.log("📤 Preparing to send data to Make.com...");
+    
+        OneSignal.push(() => {
+          OneSignal.getUserId().then(playerId => {
+            if (!playerId) {
+              console.warn("⚠️ Player ID not found. User may not be subscribed to OneSignal.");
+              return;
             }
+    
+            fetch("https://hook.eu2.make.com/wu9s6i4pnzeo3nhz1qzwsdy9qqlgzcyx", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                playerID: playerId,
+                intervalMinutes: time
+              })
+            })
+            .then(res => {
+              console.log("✅ Sent to Make.com. Response:", res.status);
+              return res.text();
+            })
+            .then(text => console.log("📨 Make.com response:", text))
+            .catch(err => console.error("❌ Error sending to Make.com:", err));
           });
         });
       }
