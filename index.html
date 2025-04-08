@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+  <title>Tracker</title>
+  <!-- PWA IOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Intake Tracker" />
+    <link rel="apple-touch-icon" href="icon.png" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
+  <body>
+    <!-- Global Tab Navigation -->
+    <nav class="tabs">
+      <button id="water-tab-btn" class="tab-btn active" data-app="water">
+        <i class="material-icons">opacity</i> Water
+      </button>
+      <button id="protein-tab-btn" class="tab-btn" data-app="protein">
+        <i class="material-icons">fitness_center</i> Protein
+      </button>
+    </nav>
+
+    <!-- Protein Tracker App -->
+    <section id="protein-app" class="app-container protein-app">
+      <div class="container">
+        <button class="settings-btn" id="protein-settings-toggle">
+          <i class="material-icons">settings</i>
+        </button>
+        <button class="history-btn" id="protein-history-toggle">
+          <i class="material-icons">history</i>
+        </button>
+        <h1>Protein Intake Tracker</h1>
+        
+        <!-- Progress Bar -->
+        <div class="progress-container">
+          <div class="progress-bar" id="protein-progress-bar"></div>
+        </div>
+        
+        <h2>Total Today: <span id="protein-total">0</span> g</h2>
+        <h2>Remaining: <span id="protein-remaining">0</span> g</h2>
+        
+        <div class="buttons">
+          <button data-action="protein-add" data-amount="5">+5g</button>
+          <button data-action="protein-add" data-amount="10">+10g</button>
+          <button data-action="protein-add" data-amount="20">+20g</button>
+          <input type="number" id="protein-manual" placeholder="Custom amount" />
+          <button id="protein-add-manual">Add Custom</button>
+          <button id="protein-reset-daily" class="daily-reset-btn">
+            <i class="material-icons">refresh</i> Reset Today
+          </button>
+        </div>
+      </div>
+
+      <!-- Protein Settings Section -->
+      <div class="settings" id="protein-settings-section">
+        <h2>Protein Settings</h2>
+        <label for="protein-goal">Set Daily Goal:</label>
+        <input type="number" id="protein-goal" placeholder="Enter goal in grams" />
+        <button id="protein-set-goal">Save Goal</button>
+        
+        <label for="protein-reminder-time">Set Reminder Interval:</label>
+        <input
+          type="number"
+          id="protein-reminder-time"
+          placeholder="Minutes between reminders"
+        />
+        <button id="protein-set-reminder">Set Reminder</button>
+        <button id="protein-enable-notifications">
+          <i class="material-icons">notifications</i> Enable Notifications
+        </button>
+        <button id="protein-reset-data" class="reset-btn">
+          <i class="material-icons">delete</i> Reset All Data
+        </button>
+      </div>
+
+      <!-- Protein History Section -->
+      <div class="history-popup" id="protein-history-popup">
+        <div class="tabs-inner">
+          <button class="tab-button active" data-tab="protein-daily-history">
+            Weekly Summary
+          </button>
+          <button class="tab-button" data-tab="protein-current-intake">
+            Today's Details
+          </button>
+        </div>
+        <div class="tab-content" id="protein-daily-history"></div>
+        <div class="tab-content" id="protein-current-intake"></div>
+      </div>
+    </section>
+
+    <!-- Water Tracker App -->
+    <section id="water-app" class="app-container water-app active">
+      <div class="container">
+        <button class="settings-btn" id="water-settings-toggle">
+          <i class="material-icons">settings</i>
+        </button>
+        <button class="history-btn" id="water-history-toggle">
+          <i class="material-icons">history</i>
+        </button>
+        <h1>Water Intake Tracker</h1>
+        
+        <!-- Progress Bar -->
+        <div class="progress-container">
+          <div class="progress-bar" id="water-progress-bar"></div>
+        </div>
+        
+        <h2>Total Today: <span id="water-total">0</span> ml</h2>
+        <h2>Remaining: <span id="water-remaining">0</span> ml</h2>
+        
+        <div class="buttons">
+          <button data-action="water-add" data-amount="100">+100ml</button>
+          <button data-action="water-add" data-amount="250">+250ml</button>
+          <button data-action="water-add" data-amount="500">+500ml</button>
+          <input type="number" id="water-manual" placeholder="Custom amount" />
+          <button id="water-add-manual">Add Custom</button>
+          <button id="water-reset-daily" class="daily-reset-btn">
+            <i class="material-icons">refresh</i> Reset Today
+          </button>
+        </div>
+      </div>
+
+      <!-- Water Settings Section -->
+      <div class="settings" id="water-settings-section">
+        <h2>Water Settings</h2>
+        <label for="water-goal">Set Daily Goal:</label>
+        <input type="number" id="water-goal" placeholder="Enter goal in ml" />
+        <button id="water-set-goal">Save Goal</button>
+        
+        <label for="water-reminder-time">Set Reminder Interval:</label>
+        <input
+          type="number"
+          id="water-reminder-time"
+          placeholder="Minutes between reminders"
+        />
+        <button id="water-set-reminder">Set Reminder</button>
+        <button id="water-enable-notifications">
+          <i class="material-icons">notifications</i> Enable Notifications
+        </button>
+        <button id="water-reset-data" class="reset-btn">
+          <i class="material-icons">delete</i> Reset All Data
+        </button>
+      </div>
+
+      <!-- Water History Section -->
+      <div class="history-popup" id="water-history-popup">
+        <div class="tabs-inner">
+          <button class="tab-button active" data-tab="water-daily-history">
+            Weekly Summary
+          </button>
+          <button class="tab-button" data-tab="water-current-intake">
+            Today's Details
+          </button>
+        </div>
+        <div class="tab-content" id="water-daily-history"></div>
+        <div class="tab-content" id="water-current-intake"></div>
+      </div>
+    </section>
+
+    <!-- Merged Script -->
+    <script src="script.js"></script>
+  
+    <!--OneSignal integration-->
+    <script>
+      window.OneSignal = window.OneSignal || [];
+      OneSignal.push(function() {
+        OneSignal.init({
+          appId: "5a060ee1-3e7c-4669-9b7b-987b10c0e38e",
+          allowLocalhostAsSecureOrigin: true,
+          notifyButton: { enable: true }
+        });
+  
+        // Make.com integration
+        OneSignal.getUserId().then(function(playerId) {
+          if (playerId) {
+            const intervalMinutes = localStorage.getItem("reminderTime_water") || "not set";
+  
+            fetch("https://hook.us1.make.com/your-make-hook-url", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                playerID: playerId,
+                intervalMinutes: intervalMinutes
+              })
+            });
+          }
+        });
+      });
+    </script>
+
+</body>
+</html>

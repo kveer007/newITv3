@@ -1,0 +1,530 @@
+/* Import Google Font - Added more font weights and Montserrat for headers */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Roboto:wght@300;400;500;700&display=swap');
+
+:root {
+  /* Updated color palette */
+  --primary-water: #1976D2;
+  --primary-water-light: #BBDEFB;
+  --primary-water-dark: #0D47A1;
+  
+  --primary-protein: #D32F2F;
+  --primary-protein-light: #FFCDD2;
+  --primary-protein-dark: #B71C1C;
+  
+  --background-color: #F5F7FA;
+  --light-bg: #fff;
+  --text-dark: #263238;
+  --text-light: #B0BEC5;
+  --success: #4CAF50;
+  --warning: #FFC107;
+  --danger: #F44336;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Roboto', sans-serif;
+  --border-radius: 12px;
+  --transition: all 0.3s ease;
+}
+
+body {
+  font-family: var(--font-body);
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  background: var(--background-color);
+  color: var(--text-dark);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Improved Tab Navigation */
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  width: 100%;
+  max-width: 500px;
+  background: var(--light-bg);
+  padding: 8px;
+  border-radius: 50px;
+  box-shadow: var(--shadow);
+}
+
+.tabs .tab-btn {
+  flex: 1;
+  padding: 12px 24px;
+  margin: 0 4px;
+  border: none;
+  background: transparent;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 15px;
+  transition: var(--transition);
+  color: var(--text-dark);
+}
+
+.tabs .tab-btn.active[data-app="water"] {
+  background: var(--primary-water);
+  color: white;
+}
+
+.tabs .tab-btn.active[data-app="protein"] {
+  background: var(--primary-protein);
+  color: white;
+}
+
+.tabs .tab-btn:hover:not(.active) {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* App Container Styling */
+.app-container {
+  display: none;
+  width: 100%;
+  padding: 20px;
+  max-width: 500px;
+  box-sizing: border-box;
+}
+
+.app-container.active {
+  display: block;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Container Styles */
+.container {
+  background: var(--light-bg);
+  padding: 30px 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.water-app .container {
+  border-top: 5px solid var(--primary-water);
+}
+
+.protein-app .container {
+  border-top: 5px solid var(--primary-protein);
+}
+
+/* Improved Typography */
+h1 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 26px;
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+
+h2 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 18px;
+  margin: 15px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h2 span {
+  font-weight: 700;
+  font-size: 22px;
+  margin-left: 8px;
+}
+
+.water-app h1, .water-app h2 span {
+  color: var(--primary-water);
+}
+
+.protein-app h1, .protein-app h2 span {
+  color: var(--primary-protein);
+}
+
+/* Button and Input Styling */
+.settings-btn,
+.history-btn {
+  position: absolute;
+  top: 15px;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.settings-btn {
+  right: 15px;
+}
+
+.history-btn {
+  left: 15px;
+}
+
+.settings-btn:hover,
+.history-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+  transform: scale(1.05);
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 25px 0 15px;
+}
+
+.buttons input,
+.settings input {
+  padding: 12px;
+  border: 1px solid #E0E0E0;
+  border-radius: var(--border-radius);
+  font-size: 15px;
+  width: 100%;
+  transition: var(--transition);
+  box-sizing: border-box;
+}
+
+.buttons input:focus,
+.settings input:focus {
+  border-color: var(--primary-water);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+}
+
+.protein-app .buttons input:focus,
+.protein-app .settings input:focus {
+  border-color: var(--primary-protein);
+  box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.2);
+}
+
+/* Improved Buttons */
+button {
+  padding: 12px;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition);
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.water-app button {
+  background: var(--primary-water);
+  color: white;
+}
+
+.water-app button:hover {
+  background: var(--primary-water-dark);
+  transform: translateY(-2px);
+}
+
+.protein-app button {
+  background: var(--primary-protein);
+  color: white;
+}
+
+.protein-app button:hover {
+  background: var(--primary-protein-dark);
+  transform: translateY(-2px);
+}
+
+/* Manual Input Actions - Span 2 columns */
+#water-manual, #protein-manual {
+  grid-column: span 2;
+}
+
+/* Reset buttons styling */
+.daily-reset-btn {
+  grid-column: span 3;
+  margin-top: 15px;
+  background: var(--warning) !important;
+  color: var(--text-dark) !important;
+  font-weight: 600;
+}
+
+.daily-reset-btn:hover {
+  background: #FFB300 !important;
+}
+
+.reset-btn {
+  background: var(--danger) !important;
+  color: white !important;
+}
+
+.reset-btn:hover {
+  background: #D32F2F !important;
+}
+
+/* Enhanced Progress Bar */
+.progress-container {
+  width: 100%;
+  height: 10px;
+  background: #E0E0E0;
+  border-radius: 50px;
+  margin: 20px 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: 50px;
+  transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+}
+
+.water-app .progress-bar {
+  background: linear-gradient(90deg, var(--primary-water-light), var(--primary-water));
+}
+
+.protein-app .progress-bar {
+  background: linear-gradient(90deg, var(--primary-protein-light), var(--primary-protein));
+}
+
+/* Settings & History Popups */
+.settings,
+.history-popup {
+  background: var(--light-bg);
+  padding: 25px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  margin: 20px auto;
+  display: none;
+  text-align: left;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: var(--transition);
+  animation: slideIn 0.3s forwards;
+  max-width: 500px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.settings.active,
+.history-popup.active {
+  display: block;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.settings h2 {
+  margin-top: 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #EEEEEE;
+  text-align: left;
+  justify-content: flex-start;
+}
+
+.settings label {
+  display: block;
+  margin: 15px 0 5px;
+  font-weight: 500;
+  color: var(--text-dark);
+  font-size: 15px;
+}
+
+.settings button {
+  margin: 15px 0;
+}
+
+.settings .reset-btn {
+  margin-top: 30px;
+}
+
+/* Inner Tabs in Popups */
+.tabs-inner {
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 2px solid #EEEEEE;
+  margin-bottom: 20px;
+}
+
+.tabs-inner .tab-button {
+  flex: 1;
+  padding: 15px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-light);
+  transition: var(--transition);
+  position: relative;
+}
+
+.water-app .tabs-inner .tab-button.active {
+  color: var(--primary-water);
+}
+
+.protein-app .tabs-inner .tab-button.active {
+  color: var(--primary-protein);
+}
+
+.tabs-inner .tab-button.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+}
+
+.tab-content {
+  display: none;
+  text-align: left;
+  padding: 10px 5px;
+  animation: fadeIn 0.3s;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Day Entry */
+.day-entry {
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: var(--border-radius);
+  background: #F5F7FA;
+  transition: var(--transition);
+}
+
+.day-entry:hover {
+  background: #EEEEEE;
+}
+
+.day-entry p {
+  margin: 0;
+  font-size: 15px;
+}
+
+.water-app .day-entry p b {
+  color: var(--primary-water);
+}
+
+.protein-app .day-entry p b {
+  color: var(--primary-protein);
+}
+
+/* Current Intake */
+.tab-content ul {
+  padding-left: 15px;
+  margin: 10px 0;
+}
+
+.tab-content li {
+  padding: 5px 0;
+}
+
+.tab-content h3, .tab-content h4 {
+  margin: 10px 0;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .tabs, .app-container, .settings, .history-popup {
+    width: 95%;
+  }
+  
+  .container, .settings, .history-popup {
+    padding: 20px 15px;
+  }
+  
+  .buttons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  button {
+    padding: 10px;
+    font-size: 14px;
+  }
+  
+  .daily-reset-btn {
+    grid-column: span 2;
+  }
+  
+  h1 {
+    font-size: 22px;
+  }
+  
+  h2 {
+    font-size: 16px;
+  }
+  
+  h2 span {
+    font-size: 20px;
+  }
+}
+
+/* Added Dark Mode Support (Optional) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #121212;
+    --light-bg: #1E1E1E;
+    --text-dark: #E0E0E0;
+    --text-light: #9E9E9E;
+  }
+  
+  .tabs {
+    background: #2D2D2D;
+  }
+  
+  .tabs .tab-btn {
+    color: #E0E0E0;
+  }
+  
+  .tabs .tab-btn:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .day-entry {
+    background: #2D2D2D;
+  }
+  
+  .day-entry:hover {
+    background: #3D3D3D;
+  }
+  
+  input {
+    background: #2D2D2D;
+    border-color: #424242;
+    color: #E0E0E0;
+  }
+  
+  .progress-container {
+    background: #424242;
+  }
+  
+  .tabs-inner {
+    border-color: #424242;
+  }
+}
+#protein-enable-notifications {
+  display: none !important;
+}
