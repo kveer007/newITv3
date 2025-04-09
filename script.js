@@ -452,7 +452,7 @@ OneSignal.push(function() {
     if (playerId) {
       const intervalMinutes = localStorage.getItem("reminderTime_water") || "not set";
 
-      fetch("https://hook.eu2.make.com/wu9s6i4pnzeo3nhz1qzwsdy9qqlgzcyx", {
+      fetch("https://hook.eu2.make.com/vwhoxdpwus8l8vwxj2cq9liaxk8t213o", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
